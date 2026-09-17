@@ -31,13 +31,37 @@ def index():
 @app.route('/admin', methods=['GET', 'POST'])
 def admin_dashboard():
     if request.method == 'POST':
-        # Admin tambah stok fabrik baru
-        name = request.form.get('name')
-        kg = float(request.form.get('available_kg'))
-        new_fabric = Fabric(name=name, available_kg=kg)
-        db.session.add(new_fabric)
-        db.session.commit()
-        flash('Stok fabrik berjaya ditambah!', 'success')
+        action = request.form.get('action')
+
+        if action == 'approve_request':
+            try:
+                request_id = int(request.form.get('request_id', ''))
+            except (TypeError, ValueError):
+                flash('Permintaan tidak sah.', 'danger')
+                return redirect(url_for('admin_dashboard'))
+
+            b40_request = db.session.get(RequestLog, request_id)
+            if not b40_request:
+                flash('Permintaan tidak ditemui.', 'danger')
+            elif b40_request.status != 'Pending':
+                flash('Permintaan ini telah diproses sebelum ini.', 'warning')
+            else:
+                b40_request.status = 'Approved'
+                db.session.commit()
+                flash(
+                    f'Permintaan {b40_request.makcik_name} untuk '
+                    f'{b40_request.requested_kg}kg {b40_request.fabric.name} telah diluluskan.',
+                    'success'
+                )
+        else:
+            # Admin tambah stok fabrik baru
+            name = request.form.get('name')
+            kg = float(request.form.get('available_kg'))
+            new_fabric = Fabric(name=name, available_kg=kg)
+            db.session.add(new_fabric)
+            db.session.commit()
+            flash('Stok fabrik berjaya ditambah!', 'success')
+
         return redirect(url_for('admin_dashboard'))
     
     fabrics = Fabric.query.all()
