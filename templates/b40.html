@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h3 class="mb-4 text-center">Katalog Fabrik Semasa</h3>
+        <p class="text-muted text-center">Pilih kain yang makcik nak buat hari ini. Pastikan muat dengan ruang rumah!</p>
+        
+        <div class="row">
+            {% for fabric in fabrics %}
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm border-success">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ fabric.name }}</h5>
+                        <p class="card-text text-muted">Stok Available: {{ fabric.available_kg }} kg</p>
+                        
+                        <!-- Form Request -->
+                        <form method="POST" action="/b40">
+                            <input type="hidden" name="fabric_id" value="{{ fabric.id }}">
+                            <div class="mb-3 text-start">
+                                <label class="form-label text-sm">Nama Makcik:</label>
+                                <input type="text" name="makcik_name" class="form-control form-control-sm" required>
+                            </div>
+                            <div class="mb-3 text-start">
+                                <label class="form-label text-sm">Nak berapa KG? (Had 10kg):</label>
+                                <input type="number" name="requested_kg" class="form-control form-control-sm" max="10" step="0.1" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Request Kain Ni</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

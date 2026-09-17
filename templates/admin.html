@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row">
+    <!-- Bahagian Update Stok -->
+    <div class="col-md-4">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-dark text-white">Update Stok Gudang</div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label>Jenis Fabrik</label>
+                        <input type="text" name="name" class="form-control" required placeholder="Contoh: Kain Linen Hotel">
+                    </div>
+                    <div class="mb-3">
+                        <label>Kuantiti (KG)</label>
+                        <input type="number" step="0.1" name="available_kg" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-dark w-100">Tambah Stok</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bahagian Monitor Request B40 -->
+    <div class="col-md-8">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-primary text-white">Logistik & Permintaan B40 (Routing)</div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nama Makcik</th>
+                            <th>Jenis Fabrik</th>
+                            <th>Diminta (KG)</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for req in requests %}
+                        <tr>
+                            <td>{{ req.makcik_name }}</td>
+                            <td>{{ req.fabric.name }}</td>
+                            <td>{{ req.requested_kg }} kg</td>
+                            <td><span class="badge bg-warning text-dark">{{ req.status }}</span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

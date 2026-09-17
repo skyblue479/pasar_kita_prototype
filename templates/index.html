@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<section class="py-3 py-md-5">
+    <div class="row align-items-center g-4 mb-4 mb-md-5">
+        <div class="col-lg-7">
+            <span class="badge rounded-pill text-bg-success px-3 py-2 mb-3">Sistem Pengedaran Komuniti</span>
+            <h1 class="display-5 fw-bold text-dark mb-3">Selamat datang ke Pasar Kita</h1>
+            <p class="lead text-muted mb-0">Urus stok fabrik gudang dan permintaan komuniti B40 dengan lebih mudah, pantas dan telus.</p>
+        </div>
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-sm bg-success text-white">
+                <div class="card-body p-4">
+                    <div class="fs-2 mb-2">&#9829;</div>
+                    <h2 class="h4 fw-bold">Bersama kita bantu komuniti</h2>
+                    <p class="mb-0 opacity-75">Pilih paparan yang sesuai untuk mula menguruskan pengedaran kain.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card h-100 shadow-sm border-0 portal-card">
+                <div class="card-body p-4 p-lg-5">
+                    <div class="icon-circle bg-dark text-white mb-4">A</div>
+                    <h2 class="h4 fw-bold">Pentadbir Pasar Kita</h2>
+                    <p class="text-muted">Tambah stok fabrik dan pantau semua permintaan serta status penghantaran.</p>
+                    <a class="btn btn-dark w-100 mt-2" href="{{ url_for('admin_dashboard') }}">Buka Dashboard Admin</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-5">
+            <div class="card h-100 shadow-sm border-success portal-card">
+                <div class="card-body p-4 p-lg-5">
+                    <div class="icon-circle bg-success text-white mb-4">B40</div>
+                    <h2 class="h4 fw-bold">Komuniti B40</h2>
+                    <p class="text-muted">Semak fabrik yang tersedia dan hantar permintaan sehingga 10 kg.</p>
+                    <a class="btn btn-success w-100 mt-2" href="{{ url_for('b40_dashboard') }}">Lihat Katalog Fabrik</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
